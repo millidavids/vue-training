@@ -16,11 +16,11 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-.bottom-right {
+.bottom-left {
     position: absolute;
     bottom: 0%;
-    right: 0%;
-    transform: translate(-100%, -100%);
+    left: 0%;
+    transform: translate(0%, -50%);
 }
 
 .error {

@@ -9,11 +9,14 @@
 
     <div class="parent" id="app">
         <div class="child">
-            <counter subject="Likes"></counter>
-            <counter subject="Dislikes"></counter>
-
+            <h1>{{firstName}} {{lastName}}</h1>
+            <input type="text" v-model="firstName" placeholder="First Name">
+            <input type="text" v-model="lastName" placeholder="Last Name">
+            <h3>Skill: {{ skill }}</h3>
+            <button @click="points += 10">Add Points</button>
+            <input type="text"  v-model="points">
         </div>
-        <pre class="bottom-right">{{ $data | json }}</pre>
+        <pre class="bottom-left">{{ $data | json }}</pre>
     </div>
 
     <template id="counter-template">
@@ -23,18 +26,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
 
     <script>
-        Vue.component('counter', {
-            template: "#counter-template",
-
-            props: ['subject'],
-
-            data: function() {
-                return { count: 0 };
-            }
-        });
-
         new Vue({
-            el: '#app'
+            el: '#app',
+            data: {
+                points: 0,
+                firstName: 'David',
+                lastName: 'Yurek'
+            },
+            computed: {
+                skill: function() {
+                    switch (true) {
+                        case (this.points < 100):
+                            return 'Beginner';
+                        case (this.points < 300):
+                            return 'Intermediate';
+                    }
+                     return 'Advanced';
+                },
+                fullName: function() {
+                    return this.firstName + " " + this.lastName;
+                }
+            }
         });
     </script>
 </body>
