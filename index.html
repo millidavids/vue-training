@@ -7,44 +7,34 @@
 </head>
 <body>
 
-    <div class="parent">
-        <div class="child" id="app">
-            <form action="done.html" @submit.prevent="handleIt">
-                <button type="submit" v-on:click="doSomething">
-                    Submit me!
-                </button>
-            </form>
+    <div class="parent" id="app">
+        <div class="child">
+            <counter subject="Likes"></counter>
+            <counter subject="Dislikes"></counter>
 
-            <button type="submit" @click="incrementCount">
-                Increment Counter: {{ count }}
-            </button>
-
-            <pre>{{ $data | json }}</pre>
         </div>
+        <pre class="bottom-right">{{ $data | json }}</pre>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
+    <template id="counter-template">
+        <button @click="count += 1">{{subject}}: {{ count }}</button>
+    </template>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
 
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                message: '',
-                count: 0
-            },
-            methods: {
-                handleIt: function() {
-                    alert('Handled');
-                },
+        Vue.component('counter', {
+            template: "#counter-template",
 
-                doSomething: function() {
-                    alert('Submitted');
-                },
+            props: ['subject'],
 
-                incrementCount: function() {
-                    this.count += 1;
-                }
+            data: function() {
+                return { count: 0 };
             }
+        });
+
+        new Vue({
+            el: '#app'
         });
     </script>
 </body>
