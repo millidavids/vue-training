@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="utf-8">
     <title>Vue Training</title>
@@ -7,24 +7,21 @@
 </head>
 <body>
 
-    <div id="app">
-        <span class="error" v-show="!message">
-            You must enter a message
-        </span>
+    <div class="parent">
+        <div class="child" id="app">
+            <form action="done.html" @submit.prevent="handleIt">
+                <button type="submit" v-on:click="doSomething">
+                    Submit me!
+                </button>
+            </form>
 
-        <form>
-            <textarea v-model="message"></textarea>
+            <button type="submit" @click="incrementCount">
+                Increment Counter: {{ count }}
+            </button>
 
-            <br>
-
-            <button type="submit" v-show="message"> Submit </button>
-
-        </form>
-        
-        <pre>{{ $data | json }}</pre>
+            <pre>{{ $data | json }}</pre>
+        </div>
     </div>
-
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.min.js"></script>
 
@@ -32,7 +29,21 @@
         new Vue({
             el: '#app',
             data: {
-                message: ''
+                message: '',
+                count: 0
+            },
+            methods: {
+                handleIt: function() {
+                    alert('Handled');
+                },
+
+                doSomething: function() {
+                    alert('Submitted');
+                },
+
+                incrementCount: function() {
+                    this.count += 1;
+                }
             }
         });
     </script>
